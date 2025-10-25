@@ -34,13 +34,17 @@ function PostList(){
         }
     `
     const Container = styled.div`
-        display : flex;
-        flex-direction : column;
-        gap : 1.5rem;
-        justify-content : center;
-        align-items : center;
+       display : flex;
+       flex-direction : column;
+       gap : 1.5rem;
+       justify-content : center;
+       align-items : center;
     `
-
+    const List = styled.div`
+        display : grid;
+        grid-template-columns : 1fr 1fr 1fr;
+        gap : 5rem;
+    `
 
     return (
         <>
@@ -50,9 +54,13 @@ function PostList(){
                 {add || <Button themeMode={theme} onClick={handleClick}>Create Post.</Button>}
                 {
                     (add===true)?<CreatePost data={posts} setAdd={setAdd}/> : 
-                    posts.map((item)=>{
-                        return <PostCard key={item.id} data={item}/>
-                    })
+                    <List>
+                        {
+                            posts.map((item)=>{
+                                return <PostCard key={item.id} data={item}/>
+                            })
+                        }
+                    </List>
                 }
             </Container>
         </>

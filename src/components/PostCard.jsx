@@ -11,9 +11,13 @@ function PostCard(props){
     const [inputs, setInputs] = useState({ title, message, imageUrl, category, author });
 
     function handleDelete(e){
-        setPosts(posts.filter((item)=>{
-            return item.id!==id;
-        }));
+        setPosts(()=>{
+                const updatedPosts = posts.filter((item)=>{
+                return item.id!==id;
+            });
+            localStorage.setItem("posts",JSON.stringify(updatedPosts))
+            return updatedPosts;
+        });
     }
 
     const handleChange = (e) => {
