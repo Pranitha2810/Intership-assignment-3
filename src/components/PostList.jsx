@@ -8,6 +8,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { Button } from './ButtonStyle.js';
 function PostList(){
     const [add,setAdd] = useState(false);
+    const [editingId, setEditingId] = useState(null);
     const { posts,theme,setTheme } = useContext(PostContext);
 
     function handleClick(){
@@ -51,16 +52,20 @@ function PostList(){
             <GlobalStyle themeMode={theme} />
             <Container>
                 {(theme==="light")? <IoIosMoon onClick={handleTheme}/> : <IoSunny onClick={handleTheme}/>} 
-                {add || <Button themeMode={theme} onClick={handleClick}>Create Post.</Button>}
+                {add || (editingId===null) && <Button themeMode={theme} onClick={handleClick}>Create Post.</Button>}
                 {
                     (add===true)?<CreatePost data={posts} setAdd={setAdd}/> : 
+                    
                     <List>
                         {
+                           
                             posts.map((item)=>{
-                                return <PostCard key={item.id} data={item}/>
+                                if(editingId===null || editingId==item.id)
+                                    return <PostCard key={item.id} data={item} editingId={editingId} setEditingId={setEditingId} setAdd={setAdd}/>
                             })
                         }
                     </List>
+                    
                 }
             </Container>
         </>

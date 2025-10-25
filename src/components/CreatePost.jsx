@@ -2,6 +2,7 @@ import { useState,useContext} from 'react';
 import { PostContext } from './PostsContext.jsx';
 import { Form } from './FormStyle.js'
 import { Button } from  './ButtonStyle.js';
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 
 
 function CreatePost(props){
@@ -24,6 +25,10 @@ function CreatePost(props){
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");
         return `${year}-${month}-${day}`;
+    }
+    
+    function handleClick(){
+       props.setAdd(false)
     }
 
     function handleSubmit(e)
@@ -52,8 +57,8 @@ function CreatePost(props){
     
     return(
         <div>
-           
-            <Form themeMode={theme} onSubmit={handleSubmit}>
+            <Button style={{width : 100 ,}} onClick={handleClick}>Back to home <IoArrowBackCircleSharp /></Button>
+            <Form themeMode={theme} onSubmit={handleSubmit} style={{marginTop : 70}}>
                 <div>
                     <input type="text" placeholder="Enter title." name="title" value={inputs.title} onChange={handleChange} required/>
                     <input type="text" placeholder="Enter message" name="message" value={inputs.message} onChange={handleChange} required/>
@@ -62,6 +67,7 @@ function CreatePost(props){
                     <input type="text" placeholder="Enter category" name="category" value={inputs.category} onChange={handleChange} required/>
                 </div>
                 <Button type="submit" style={{marginTop : 20,marginLeft : 200}}>Submit</Button>
+                
             </Form>
         
         </div>
